@@ -1,29 +1,36 @@
-<script setup>
-import { ref, onMounted } from 'vue'
-import api from '@/plugins/axios'
-import Loading from 'vue-loading-overlay'
-import { useGenreStore } from '@/stores/genre'
 
-const genreStore = useGenreStore()
-const tvShows = ref([])
-const isLoading = ref(false)
+<script setup>
+import { ref, onMounted } from 'vue';
+import api from '@/plugins/axios';
+import Loading from 'vue-loading-overlay';
+import { useGenreStore } from '@/stores/genre';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+const genreStore = useGenreStore();
+const tvShows = ref([]);
+const isLoading = ref(false);
 
 const listTvShows = async (genreId) => {
-  isLoading.value = true
+  genreStore.setCurrentGenreId(genreId);
+  isLoading.value = true;
   const response = await api.get('discover/tv', {
     params: { with_genres: genreId, language: 'pt-BR' },
-  })
-  tvShows.value = response.data.results
-  isLoading.value = false
-}
+  });
+  tvShows.value = response.data.results;
+  isLoading.value = false;
+};
 
 onMounted(async () => {
-  await genreStore.getAllGenres('tv')
-})
+  await genreStore.getAllGenres('tv');
+});
 
-const getGenreName = (id) => genreStore.genres.find((genre) => genre.id === id)?.name || ''
+const getGenreName = (id) => genreStore.genres.find((genre) => genre.id === id)?.name || '';
+const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR');
 
-const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
+function openTv(tvId) {
+  router.push({ name: 'TvDetails', params: { tvId } });
+}
 </script>
 
 <template>
@@ -32,8 +39,9 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
     <li
       v-for="genre in genreStore.genres"
       :key="genre.id"
-      class="genre-item"
       @click="listTvShows(genre.id)"
+      class="genre-item"
+      :class="{ active: genre.id === genreStore.currentGenreId }"
     >
       {{ genre.name }}
     </li>
@@ -43,12 +51,21 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
 
   <div class="movie-list">
     <div v-for="tv in tvShows" :key="tv.id" class="movie-card">
-      <img :src="`https://image.tmdb.org/t/p/w500${tv.poster_path}`" :alt="tv.name" />
+      <img
+        :src="`https://image.tmdb.org/t/p/w500${tv.poster_path}`"
+        :alt="tv.name"
+        @click="openTv(tv.id)"
+      />
       <div class="movie-details">
         <p class="movie-title">{{ tv.name }}</p>
         <p class="movie-release-date">{{ formatDate(tv.first_air_date) }}</p>
         <p class="movie-genres">
-          <span v-for="genre_id in tv.genre_ids" :key="genre_id" @click="listTvShows(genre_id)">
+          <span
+            v-for="genre_id in tv.genre_ids"
+            :key="genre_id"
+            @click="listTvShows(genre_id)"
+            :class="{ active: genre_id === genreStore.currentGenreId }"
+          >
             {{ getGenreName(genre_id) }}
           </span>
         </p>
@@ -96,9 +113,10 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
   height: 20rem;
   border-radius: 0.5rem;
   box-shadow: 0 0 0.5rem #000;
+  cursor: pointer;
 }
 .movie-details {
-  padding: 0.5rem;
+  padding: 0 0.5rem;
 }
 .movie-title {
   font-size: 1rem;
@@ -126,5 +144,14 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
   cursor: pointer;
   background-color: #455a08;
   box-shadow: 0 0 0.5rem #748708;
+}
+.active {
+  background-color: #67b086;
+  font-weight: bolder;
+}
+.movie-genres span.active {
+  background-color: #abc322;
+  color: #000;
+  font-weight: bolder;
 }
 </style>
