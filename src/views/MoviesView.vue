@@ -26,7 +26,7 @@ const listMovies = async (genreId) => {
 
   const isLoading = ref(false);
   const getGenreName = (id) => genres.value.find((genre) => genre.id === id).name
-
+  const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR');
 </script>
 <template>
   <h1>Filmes</h1>
@@ -49,7 +49,7 @@ const listMovies = async (genreId) => {
     />
     <div class="movie-details">
       <p class="movie-title">{{ movie.title }}</p>
-      <p class="movie-release-date">{{ movie.release_date }}</p>
+      <p class="movie-release-date">{{ formatDate(movie.release_date) }}</p>
       <p class="movie-genres">
   <span
     v-for="genre_id in movie.genre_ids"

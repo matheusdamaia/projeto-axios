@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import api from '@/plugins/axios';
-import Loading from 'vue-loading-overlay'
+import Loading from 'vue-loading-overlay'; // mesmo import usado antes
 
 const genres = ref([]);
 const tvShows = ref([]);
@@ -26,6 +26,7 @@ onMounted(async () => {
 
 const getGenreName = (id) =>
   genres.value.find((genre) => genre.id === id)?.name || '';
+  const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR');
 </script>
 
 <template>
@@ -53,7 +54,7 @@ const getGenreName = (id) =>
       />
       <div class="movie-details">
         <p class="movie-title">{{ tv.name }}</p>
-        <p class="movie-release-date">{{ tv.first_air_date }}</p>
+        <p class="movie-release-date">{{ formatDate(tv.first_air_date) }}</p>
         <p class="movie-genres">
           <span
             v-for="genre_id in tv.genre_ids"
