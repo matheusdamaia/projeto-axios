@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import api from '@/plugins/axios';
-import Loading from 'vue-loading-overlay'; // mesmo import usado antes
+import Loading from 'vue-loading-overlay';
 
 const genres = ref([]);
 const tvShows = ref([]);
@@ -54,6 +54,7 @@ const getGenreName = (id) =>
       />
       <div class="movie-details">
         <p class="movie-title">{{ tv.name }}</p>
+        <p class="tv-original-name">{{ tv.original_name }}</p>
         <p class="movie-release-date">{{ formatDate(tv.first_air_date) }}</p>
         <p class="movie-genres">
           <span
@@ -64,6 +65,7 @@ const getGenreName = (id) =>
             {{ getGenreName(genre_id) }}
           </span>
         </p>
+
       </div>
     </div>
   </div>
