@@ -91,7 +91,7 @@ const formatDate = (date) => date ? new Date(date).toLocaleDateString('pt-BR') :
 .info h3 {
   margin: 0.5rem 0;
   font-style: italic;
-  color: #555;
+  color: #b4b4b4;
 }
 
 .info p {
@@ -110,7 +110,7 @@ const formatDate = (date) => date ? new Date(date).toLocaleDateString('pt-BR') :
 }
 
 .company-list img {
-  height: 20px;
+  height: 2rem;
   object-fit: contain;
 }
 

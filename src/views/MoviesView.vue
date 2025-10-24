@@ -84,63 +84,66 @@ const openMovie = (movieId) => {
 </template>
 
 <style scoped>
+h1{
+  padding: 2rem;
+}
 .genre-list {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 2rem;
   list-style: none;
-  margin: 2rem;
+  margin: 0;
 }
-
 .genre-item {
-  background-color: #387250;
+  background-color: #5d6424;
   border-radius: 1rem;
   padding: 0.5rem 1rem;
   color: #fff;
 }
-
 .genre-item:hover {
   cursor: pointer;
-  background-color: #4e9e5f;
+  background-color: #7d8a2e;
   box-shadow: 0 0 0.5rem #387250;
 }
-
 .movie-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   gap: 1.5rem;
   justify-items: center;
   margin: 2rem;
+  
 }
-
 .movie-card {
   width: 15rem;
   height: 30rem;
   border-radius: 0.5rem;
   overflow: hidden;
   box-shadow: 0 0 0.5rem #000;
+  background-color: #292929;
+  transition: 0.2s ease-in-out;
 }
+.movie-card:hover{
+  background-color: #383737;
+  transform: scale(1.04);
+   box-shadow: 0 0 0.5rem #67b086;
 
+}
 .movie-card img {
   width: 100%;
   height: 20rem;
   border-radius: 0.5rem;
-  box-shadow: 0 0 0.5rem #000;
   cursor: pointer;
 }
-
 .movie-details {
   padding: 0 0.5rem;
 }
-
 .movie-title {
   font-size: 1rem;
   font-weight: bold;
   line-height: 1.3rem;
   height: 3.2rem;
 }
-
 .movie-genres {
   display: flex;
   flex-direction: row;
@@ -149,7 +152,6 @@ const openMovie = (movieId) => {
   justify-content: center;
   gap: 0.2rem;
 }
-
 .movie-genres span {
   background-color: #748708;
   border-radius: 0.5rem;
@@ -158,18 +160,15 @@ const openMovie = (movieId) => {
   font-size: 0.8rem;
   font-weight: bold;
 }
-
 .movie-genres span:hover {
   cursor: pointer;
   background-color: #455a08;
   box-shadow: 0 0 0.5rem #748708;
 }
-
 .active {
   background-color: #67b086;
   font-weight: bolder;
 }
-
 .movie-genres span.active {
   background-color: #abc322;
   color: #000;

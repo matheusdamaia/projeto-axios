@@ -75,13 +75,16 @@ function openTv(tvId) {
 </template>
 
 <style scoped>
+h1{
+  padding: 2rem;
+}
 .genre-list {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 2rem;
   list-style: none;
-  margin: 2rem;
+  margin: 0;
 }
 .genre-item {
   background-color: #5d6424;
@@ -100,6 +103,7 @@ function openTv(tvId) {
   gap: 1.5rem;
   justify-items: center;
   margin: 2rem;
+  
 }
 .movie-card {
   width: 15rem;
@@ -107,12 +111,19 @@ function openTv(tvId) {
   border-radius: 0.5rem;
   overflow: hidden;
   box-shadow: 0 0 0.5rem #000;
+  background-color: #292929;
+  transition: 0.2s ease-in-out;
+}
+.movie-card:hover{
+  background-color: #383737;
+  box-shadow: 0 0 0.5rem #67b086;
+  transform: scale(1.04);
+
 }
 .movie-card img {
   width: 100%;
   height: 20rem;
   border-radius: 0.5rem;
-  box-shadow: 0 0 0.5rem #000;
   cursor: pointer;
 }
 .movie-details {
